@@ -16,8 +16,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // CSRF disabled for API access
-                .cors(cors -> {}) // Enable CORS
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
@@ -26,7 +26,7 @@ public class SecurityConfig {
                                 "/api/users/delete/**",
                                 "/api/tasks/**",
                                 "/api/expenses/**"
-                        ).permitAll() // Saari required APIs ko bina authentication ke allow kiya gaya hai
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
