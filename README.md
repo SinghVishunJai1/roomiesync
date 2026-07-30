@@ -31,6 +31,39 @@ RoomieSync is a modern, full-stack web application designed for roommates to sea
 
 ---
 
+## 📸 App UI Gallery
+
+<p align="center">
+  <img src="assets/img1.png" width="48%" alt="RoomieSync UI 1" />
+  <img src="assets/img2.png" width="48%" alt="RoomieSync UI 2" />
+</p>
+<p align="center">
+  <img src="assets/img3.png" width="48%" alt="RoomieSync UI 3" />
+  <img src="assets/img4.png" width="48%" alt="RoomieSync UI 4" />
+</p>
+<p align="center">
+  <img src="assets/img5.png" width="48%" alt="RoomieSync UI 5" />
+  <img src="assets/img6.png" width="48%" alt="RoomieSync UI 6" />
+</p>
+<p align="center">
+  <img src="assets/img7.png" width="48%" alt="RoomieSync UI 7" />
+  <img src="assets/img8.png" width="48%" alt="RoomieSync UI 8" />
+</p>
+<p align="center">
+  <img src="assets/img9.png" width="48%" alt="RoomieSync UI 9" />
+  <img src="assets/img10.png" width="48%" alt="RoomieSync UI 10" />
+</p>
+<p align="center">
+  <img src="assets/img11.png" width="48%" alt="RoomieSync UI 11" />
+  <img src="assets/img12.png" width="48%" alt="RoomieSync UI 12" />
+</p>
+<p align="center">
+  <img src="assets/img13.png" width="48%" alt="RoomieSync UI 13" />
+  <img src="assets/img14.png" width="48%" alt="RoomieSync UI 14" />
+</p>
+
+---
+
 ## 👤 Author
 
 **Jai Vishun Singh**
