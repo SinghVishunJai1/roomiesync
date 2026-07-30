@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("*") // Frontend (React) se connect karne ke liye
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
@@ -25,6 +25,7 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {

@@ -6,6 +6,7 @@ import com.roomiesync.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -15,10 +16,21 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    // --- TASK APIs ---
-
     @PostMapping("/add")
     public Task createTask(@RequestBody Task task) {
+        return taskService.createTask(task);
+    }
+
+    @PostMapping("/assign")
+    public Task assignTask(@RequestBody Map<String, Object> payload) {
+        String title = (String) payload.get("title");
+        Long assignedToUserId = Long.valueOf(payload.get("assignedToUserId").toString());
+
+        Task task = new Task();
+        task.setTitle(title);
+        task.setAssignedToUserId(assignedToUserId);
+        task.setStatus("Pending");
+
         return taskService.createTask(task);
     }
 
@@ -31,8 +43,6 @@ public class TaskController {
     public Task completeTask(@PathVariable Long taskId) {
         return taskService.completeTask(taskId);
     }
-
-    // --- BOUNTY & SWAP APIs ---
 
     @PostMapping("/{taskId}/bounty")
     public BountyRequest createBounty(@PathVariable Long taskId, @RequestParam Long userId, @RequestParam Double amount) {

@@ -17,16 +17,16 @@ public class BountyRequest {
     private Long id;
 
     @Column(nullable = false)
-    private Long taskId; // Kis task ke liye bounty lagayi gayi hai
+    private Long taskId;
 
     @Column(nullable = false)
-    private Long offeredByUserId; // Jisne task chhoda aur paise offer kiye
+    private Long offeredByUserId;
 
     @Column(nullable = false)
-    private Double bountyAmount; // Kitne rupay ki bounty hai (jaise 30 Rs)
+    private Double bountyAmount;
 
-    private Long claimedByUserId; // Jis user ne task uthaya
+    private Long claimedByUserId;
 
     @Column(nullable = false)
-    private String status = "Open"; // "Open", "Claimed", "Completed"
+    private String status = "Open";
 }

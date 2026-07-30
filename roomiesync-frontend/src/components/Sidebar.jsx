@@ -1,15 +1,19 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, CheckSquare, Gift, DollarSign, Users, ShieldCheck, LogOut, X } from 'lucide-react';
+import { Home, CheckSquare, Gift, DollarSign, Users, ShieldCheck, LogOut, X, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Sidebar({ isOpen, onClose }) {
     const { user } = useAuth();
+    const { isDarkMode, toggleTheme } = useTheme();
     const location = useLocation();
 
     if (!user) return null;
 
-    const navItems = [
+    const isAdmin = user.role === 'ADMIN';
+
+    let navItems = [
         { name: 'Dashboard', path: '/', icon: Home },
         { name: 'Tasks', path: '/tasks', icon: CheckSquare },
         { name: 'Bounties', path: '/bounties', icon: Gift },
@@ -17,7 +21,8 @@ export default function Sidebar({ isOpen, onClose }) {
         { name: 'Roommates', path: '/roommates', icon: Users },
     ];
 
-    if (user.role === 'ADMIN') {
+    if (isAdmin) {
+        navItems = navItems.filter(item => item.path !== '/tasks' && item.path !== '/bounties');
         navItems.push({ name: 'Admin Panel', path: '/admin', icon: ShieldCheck });
     }
 
@@ -28,7 +33,6 @@ export default function Sidebar({ isOpen, onClose }) {
 
     return (
         <>
-            {/* Mobile Backdrop Overlay when sidebar is open */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div 
@@ -36,32 +40,31 @@ export default function Sidebar({ isOpen, onClose }) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden"
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
                     />
                 )}
             </AnimatePresence>
 
-            {/* Sidebar Container */}
             <motion.aside 
-                className={`fixed md:sticky top-0 left-0 z-50 w-64 bg-black/95 backdrop-blur-xl border-r border-neutral-800/80 h-screen flex flex-col justify-between text-neutral-200 shadow-2xl shrink-0 transition-transform duration-300 md:translate-x-0 ${
+                className={`fixed md:sticky top-0 left-0 z-50 w-64 bg-white/90 dark:bg-black/95 backdrop-blur-xl border-r border-slate-200 dark:border-neutral-800/80 h-screen flex flex-col justify-between text-slate-800 dark:text-neutral-200 shadow-2xl shrink-0 transition-transform duration-300 md:translate-x-0 ${
                     isOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}
             >
                 <div>
-                    {/* Logo & Mobile Close Button */}
-                    <div className="p-6 border-b border-neutral-800/80 flex items-center justify-between">
+                    <div className="p-6 border-b border-slate-200 dark:border-neutral-800/80 flex items-center justify-between">
                         <div>
-                            <h1 className="text-xl font-black bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent tracking-wide">
+                            <h1 className="text-xl font-black bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 dark:from-violet-400 dark:via-fuchsia-400 dark:to-cyan-400 bg-clip-text text-transparent tracking-wide">
                                 RoomieSync 🏡
                             </h1>
-                            <p className="text-xs text-neutral-400 mt-1 font-medium">Flat Management Portal</p>
+                            <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1 font-medium">
+                                {isAdmin ? 'Manager Settlement Portal' : 'Flat Management Portal'}
+                            </p>
                         </div>
-                        <button onClick={onClose} className="md:hidden text-neutral-400 hover:text-white">
+                        <button onClick={onClose} className="md:hidden text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white">
                             <X size={20} />
                         </button>
                     </div>
 
-                    {/* Nav Items */}
                     <nav className="p-4 space-y-2 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {navItems.map((item) => {
                             const Icon = item.icon;
@@ -73,7 +76,9 @@ export default function Sidebar({ isOpen, onClose }) {
                                     to={item.path}
                                     onClick={() => { if (window.innerWidth < 768) onClose(); }}
                                     className={`relative flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 ${
-                                        isActive ? 'text-cyan-400' : 'text-neutral-400 hover:text-neutral-100 hover:bg-neutral-900/60'
+                                        isActive 
+                                            ? 'text-cyan-600 dark:text-cyan-400 font-bold' 
+                                            : 'text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-neutral-100 hover:bg-slate-100 dark:hover:bg-neutral-900/60'
                                     }`}
                                 >
                                     {isActive && (
@@ -84,7 +89,7 @@ export default function Sidebar({ isOpen, onClose }) {
                                         />
                                     )}
                                     <span className="relative z-10 flex items-center gap-3.5">
-                                        <Icon size={18} className={isActive ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]' : 'text-neutral-400'} />
+                                        <Icon size={18} className={isActive ? 'text-cyan-600 dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]' : 'text-slate-500 dark:text-neutral-400'} />
                                         {item.name}
                                     </span>
                                 </NavLink>
@@ -93,15 +98,25 @@ export default function Sidebar({ isOpen, onClose }) {
                     </nav>
                 </div>
 
-                {/* User Profile & Logout Footer */}
-                <div className="p-4 border-t border-neutral-800/80 bg-neutral-950/60 m-4 rounded-2xl space-y-3 backdrop-blur-md">
-                    <div>
-                        <p className="text-xs font-bold text-neutral-200 truncate">{user.name}</p>
-                        <p className="text-[10px] text-neutral-400 truncate">{user.email}</p>
+                <div className="p-4 border-t border-slate-200 dark:border-neutral-800/80 bg-slate-100/60 dark:bg-neutral-950/60 m-4 rounded-2xl space-y-3 backdrop-blur-md">
+                    <div className="flex items-center justify-between">
+                        <div className="overflow-hidden pr-2">
+                            <p className="text-xs font-bold text-slate-800 dark:text-neutral-200 truncate">{user.name}</p>
+                            <p className="text-[10px] text-slate-500 dark:text-neutral-400 truncate">{user.email}</p>
+                        </div>
+                        <motion.button 
+                            whileTap={{ scale: 0.9 }}
+                            onClick={toggleTheme}
+                            className="p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white transition shrink-0 shadow-sm flex items-center justify-center"
+                            title="Toggle Theme"
+                        >
+                            {isDarkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-violet-600" />}
+                        </motion.button>
                     </div>
+
                     <button 
                         onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl text-xs font-bold transition-all duration-200 border border-rose-500/20 shadow-sm"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-bold transition-all duration-200 border border-rose-500/20 shadow-sm"
                     >
                         <LogOut size={14} /> Logout
                     </button>

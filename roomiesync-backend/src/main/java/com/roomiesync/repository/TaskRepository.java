@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    // Kisi specific user ko kaun-kaun se tasks assign hain
     List<Task> findByAssignedToUserId(Long userId);
 }

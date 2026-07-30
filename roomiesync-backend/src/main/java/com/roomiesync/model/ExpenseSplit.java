@@ -17,14 +17,14 @@ public class ExpenseSplit {
     private Long id;
 
     @Column(nullable = false)
-    private Long expenseId; // Kis expense ka part hai
+    private Long expenseId;
 
     @Column(nullable = false)
-    private Long userId; // Kis user par yeh debt/hissa hai
+    private Long userId;
 
     @Column(nullable = false)
-    private Double amountOwed; // Us user ko kitna paisa dena hai
+    private Double amountOwed;
 
     @Column(nullable = false)
-    private Boolean isSettled = false; // False = dena baaki hai, True = settle ho gaya
+    private Boolean isSettled = false;
 }

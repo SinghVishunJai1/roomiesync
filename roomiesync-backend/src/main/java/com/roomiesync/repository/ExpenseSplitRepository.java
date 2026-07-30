@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ExpenseSplitRepository extends JpaRepository<ExpenseSplit, Long> {
-    // Kisi specific user ka kitna paisa dena baaki hai, woh nikalne ke liye
     List<ExpenseSplit> findByUserIdAndIsSettled(Long userId, Boolean isSettled);
 }

@@ -26,5 +26,5 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role = "USER"; // Default role 'USER' rahega, admin ke liye 'ADMIN' set kar sakte hain
+    private String role = "USER";
 }

@@ -16,16 +16,14 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    // Simple Login API
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
         Optional<User> existingUser = userService.findByEmail(loginRequest.getEmail());
 
         if (existingUser.isPresent()) {
             User user = existingUser.get();
-            // Simple password check (Aage chalkar isko BCrypt se secure kar sakte hain)
             if (user.getPassword().equals(loginRequest.getPassword())) {
-                return ResponseEntity.ok(user); // Login successful, user details bhej do
+                return ResponseEntity.ok(user);
             } else {
                 return ResponseEntity.badRequest().body("Invalid password!");
             }

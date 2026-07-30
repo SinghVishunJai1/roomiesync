@@ -7,27 +7,32 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses")
+@Table(name = "settlements")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expense {
+public class Settlement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
-    private String description;
+    @Column(nullable = false)
+    private Long payerUserId;
+
+    @Column(nullable = false)
+    private String payerName;
+
+    @Column(nullable = false)
+    private Long receiverUserId;
 
     @Column(nullable = false)
     private Double amount;
 
-    @Column(nullable = false)
-    private String category;
+    private Long expenseId;
 
     @Column(nullable = false)
-    private Long paidByUserId;
+    private String status = "PENDING";
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

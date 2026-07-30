@@ -16,14 +16,14 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "task_name", nullable = false)
     private String title;
 
     private String description;
 
     @Column(nullable = false)
-    private String status = "Pending"; // Pending, Completed
+    private String status = "Pending";
 
     @Column(nullable = false)
-    private Long assignedToUserId; // Jis user ko task assign kiya gaya hai
+    private Long assignedToUserId;
 }
